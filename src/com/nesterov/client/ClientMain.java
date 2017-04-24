@@ -36,8 +36,7 @@ public class ClientMain {
             FileTransferClient client=new FileTransferClient(taskExecutor);
 
             presenter = new MainPresenterImpl(client, new ViewImpl(System.out,System.in),ClientConfig.executorService());
-
-
+            ClientConfig.executorService().shutdown();
     }
 
 }
