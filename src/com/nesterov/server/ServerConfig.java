@@ -97,11 +97,11 @@ public class ServerConfig {
 
     private static TaskExceptionFactory<RequestProperties> defaultTaskExceptionFactory()
     {
-        return defaultTaskExceptionFactory;
+        return defaultTaskExceptionFactory=defaultTaskExceptionFactory==null?new DefaultTaskExceptionFactory<>():defaultTaskExceptionFactory;
     }
     private static TaskExceptionFactory<AsynchronousChannelRequestProperties> asynchronousChannelTaskExceptionFactory()
     {
-        return asynchronousChannelTaskExceptionFactory;
+        return asynchronousChannelTaskExceptionFactory=asynchronousChannelTaskExceptionFactory==null?new AsynchronousChannelExceptionFactory():asynchronousChannelTaskExceptionFactory;
     }
 
     private static StatisticsStorage<ActionType> statisticsStorage()

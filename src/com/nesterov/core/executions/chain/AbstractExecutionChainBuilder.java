@@ -16,7 +16,7 @@ public abstract class AbstractExecutionChainBuilder <I,CP> implements ExecutionC
     public AbstractExecutionChainBuilder(CP chainProperties)
     {
         builders=new LinkedList<>();
-        this.chainProperties=chainProperties;
+        this.chainProperties=Optional.of(chainProperties).get();
 
     }
     public <P,C,V> ExecutionChainBuilder thenExecute(ExecutionBuilder<P,C, V> builder, I key)

@@ -6,6 +6,7 @@ import com.nesterov.core.executions.task.TaskExceptionFactory;
 import com.nesterov.core.executions.task.TaskFactory;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class FileRequestTaskFactory implements TaskFactory<Float,Void, RequestProperties> {
@@ -14,8 +15,8 @@ public class FileRequestTaskFactory implements TaskFactory<Float,Void, RequestPr
     public FileRequestTaskFactory(Path folder,
                                   TaskExceptionFactory<RequestProperties> taskExceptionFactory)
     {
-        this.folder=folder;
-        this.taskExceptionFactory=taskExceptionFactory;
+        this.folder= Optional.of(folder).get();
+        this.taskExceptionFactory=Optional.of(taskExceptionFactory).get();
     }
     @Override
     public AbstractTask<Float, Void,RequestProperties> create(RequestProperties properties,

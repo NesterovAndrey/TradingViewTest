@@ -9,6 +9,7 @@ import com.nesterov.core.executions.task.TaskFactory;
 
 import java.net.InetSocketAddress;
 import java.nio.channels.AsynchronousSocketChannel;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class CreateConnectionTaskFactory implements TaskFactory<Float,Boolean, AsynchronousChannelRequestProperties> {
@@ -19,9 +20,9 @@ public class CreateConnectionTaskFactory implements TaskFactory<Float,Boolean, A
                                        InetSocketAddress address,
                                        TaskExceptionFactory<AsynchronousChannelRequestProperties> taskExceptionFactory)
     {
-        this.connection=connection;
-        this.address=address;
-        this.taskExceptionFactory=taskExceptionFactory;
+        this.connection= Optional.of(connection).get();
+        this.address=Optional.of(address).get();
+        this.taskExceptionFactory=Optional.of(taskExceptionFactory).get();
     }
     @Override
     public AbstractTask<Float, Boolean,  AsynchronousChannelRequestProperties> create(AsynchronousChannelRequestProperties properties,

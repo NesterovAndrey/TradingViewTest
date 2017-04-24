@@ -6,6 +6,7 @@ import com.nesterov.core.executions.task.TaskExceptionFactory;
 import com.nesterov.core.executions.task.TaskFactory;
 import com.nesterov.util.fileSystem.BytesLoaderFactory;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class WriteFileTaskFactory implements TaskFactory<Integer, Void, AsynchronousChannelRequestProperties>{
@@ -15,10 +16,10 @@ public class WriteFileTaskFactory implements TaskFactory<Integer, Void, Asynchro
     private final TaskExceptionFactory<AsynchronousChannelRequestProperties> taskExceptionFactory;
     public WriteFileTaskFactory(BytesLoaderFactory bytesLoaderFactory, int bufferSize,int timeout,
                                 TaskExceptionFactory<AsynchronousChannelRequestProperties>taskExceptionFactory) {
-        this.bytesLoaderFactory = bytesLoaderFactory;
-        this.bufferSize = bufferSize;
+        this.bytesLoaderFactory = Optional.of(bytesLoaderFactory).get();
+        this.bufferSize = Optional.of(bufferSize).get();
         this.timeout=timeout;
-        this.taskExceptionFactory=taskExceptionFactory;
+        this.taskExceptionFactory=Optional.of(taskExceptionFactory).get();
     }
 
     @Override

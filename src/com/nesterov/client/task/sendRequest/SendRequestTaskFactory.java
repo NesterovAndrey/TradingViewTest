@@ -5,6 +5,7 @@ import com.nesterov.core.executions.task.AbstractTask;
 import com.nesterov.core.executions.task.TaskExceptionFactory;
 import com.nesterov.core.executions.task.TaskFactory;
 
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Consumer;
 
@@ -15,8 +16,8 @@ public class SendRequestTaskFactory implements TaskFactory<Float,Boolean,Request
     public SendRequestTaskFactory(int timeout, ExecutorService executorService,TaskExceptionFactory<RequestProperties> taskExceptionFactory)
     {
         this.timeout=timeout;
-        this.executorService=executorService;
-        this.taskExceptionFactory=taskExceptionFactory;
+        this.executorService= Optional.of(executorService).get();
+        this.taskExceptionFactory=Optional.of(taskExceptionFactory).get();
     }
     @Override
     public AbstractTask<Float, Boolean,RequestProperties> create(RequestProperties properties,

@@ -6,6 +6,7 @@ import com.nesterov.core.executions.task.TaskExceptionFactory;
 import com.nesterov.core.executions.task.TaskFactory;
 import com.nesterov.server.folder.FolderFilesList;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class FilesListTaskFactory implements TaskFactory<Float,Void, RequestProperties> {
@@ -14,8 +15,8 @@ public class FilesListTaskFactory implements TaskFactory<Float,Void, RequestProp
     public FilesListTaskFactory(FolderFilesList folderListing,
                                 TaskExceptionFactory<RequestProperties> taskExceptionFactory)
     {
-        this.folderListing=folderListing;
-        this.taskExceptionFactory=taskExceptionFactory;
+        this.folderListing= Optional.of(folderListing).get();
+        this.taskExceptionFactory=Optional.of(taskExceptionFactory).get();
     }
     @Override
     public AbstractTask<Float, Void,RequestProperties> create(RequestProperties properties,

@@ -7,6 +7,7 @@ import com.nesterov.core.executions.task.TaskFactory;
 import com.nesterov.core.request.ActionType;
 import com.nesterov.server.statistics.StatisticsStorage;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class FileStatisticsFactory implements TaskFactory<Void,Void, RequestProperties> {
@@ -15,8 +16,8 @@ public class FileStatisticsFactory implements TaskFactory<Void,Void, RequestProp
     public FileStatisticsFactory(StatisticsStorage<ActionType> statisticsStorage,
                                  TaskExceptionFactory<RequestProperties> taskExceptionFactory)
     {
-        this.statisticsStorage=statisticsStorage;
-        this.taskExceptionFactory=taskExceptionFactory;
+        this.statisticsStorage= Optional.of(statisticsStorage).get();
+        this.taskExceptionFactory=Optional.of(taskExceptionFactory).get();
     }
     @Override
     public AbstractTask<Void, Void, RequestProperties> create(RequestProperties properties,

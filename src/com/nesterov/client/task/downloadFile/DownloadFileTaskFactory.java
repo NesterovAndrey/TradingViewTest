@@ -8,6 +8,7 @@ import com.nesterov.core.executions.task.TaskFactory;
 import com.nesterov.util.fileSystem.FileStreamFileWriterFactory;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class DownloadFileTaskFactory implements TaskFactory<Integer,Boolean, AsynchronousChannelRequestProperties> {
@@ -18,10 +19,10 @@ public class DownloadFileTaskFactory implements TaskFactory<Integer,Boolean, Asy
     private final TaskExceptionFactory<AsynchronousChannelRequestProperties> taskExceptionFactory;
     public DownloadFileTaskFactory(Path path, int timeout, int bufferSize,TaskExceptionFactory<AsynchronousChannelRequestProperties> taskExceptionFactory)
     {
-        this.path=path;
+        this.path= Optional.of(path).get();
         this.timeout=timeout;
         this.bufferSize=bufferSize;
-        this.taskExceptionFactory=taskExceptionFactory;
+        this.taskExceptionFactory=Optional.of(taskExceptionFactory).get();
     }
     @Override
     public AbstractTask<Integer, Boolean, AsynchronousChannelRequestProperties> create(AsynchronousChannelRequestProperties properties,

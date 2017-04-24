@@ -15,6 +15,7 @@ import java.nio.channels.Channels;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 
 public class ExecutorsConnectionListener implements Observer {
@@ -22,9 +23,9 @@ public class ExecutorsConnectionListener implements Observer {
     private final TaskExecutor<ActionType> taskExecutor;
     private final ExecutorService executorService;
     public ExecutorsConnectionListener(MessageDeserializerFactory<Map> messageDeserializerFactory, TaskExecutor taskExecutor, ExecutorService executorService) {
-        this.messageDeserializerFactory = messageDeserializerFactory;
-        this.taskExecutor = taskExecutor;
-        this.executorService=executorService;
+        this.messageDeserializerFactory = Optional.of(messageDeserializerFactory).get();
+        this.taskExecutor = Optional.of(taskExecutor).get();
+        this.executorService=Optional.of(executorService).get();
     }
     //Вызывается при новом подключении к серверу.
     @Override

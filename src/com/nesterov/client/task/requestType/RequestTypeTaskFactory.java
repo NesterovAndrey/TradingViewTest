@@ -6,6 +6,7 @@ import com.nesterov.core.executions.task.TaskExceptionFactory;
 import com.nesterov.core.executions.task.TaskFactory;
 import com.nesterov.core.request.ActionType;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class RequestTypeTaskFactory implements TaskFactory<Void,Void,RequestProperties> {
@@ -15,7 +16,7 @@ public class RequestTypeTaskFactory implements TaskFactory<Void,Void,RequestProp
     public RequestTypeTaskFactory(ActionType actionType,TaskExceptionFactory<RequestProperties> taskExceptionFactory)
     {
         this.actionType = actionType;
-        this.taskExceptionFactory=taskExceptionFactory;
+        this.taskExceptionFactory= Optional.of(taskExceptionFactory).get();
     }
     @Override
     public AbstractTask<Void, Void,RequestProperties> create(RequestProperties properties,

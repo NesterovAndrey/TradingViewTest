@@ -13,8 +13,8 @@ public final class AsyncMessageDeserializer implements MessageDeserializer<Map> 
     private final JSONMapper jsonMapper;
     public AsyncMessageDeserializer(InputStream inputStream, JSONMapper jsonMapper)
     {
-        this.inputStream=inputStream;
-        this.jsonMapper=jsonMapper;
+        this.inputStream=Optional.of(inputStream).get();
+        this.jsonMapper=Optional.of(jsonMapper).get();
     }
     //Преобразуем полученную строку в Map
     @Override
