@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tradingviewtest" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.ear"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module TradingViewTest -->
+  
+  <dirname property="module.tradingviewtest.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.tradingviewtest" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.tradingviewtest" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.tradingviewtest" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.tradingviewtest" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="tradingviewtest.output.dir" value="${module.tradingviewtest.basedir}/out/production/TradingViewTest"/>
+  <property name="tradingviewtest.testoutput.dir" value="${module.tradingviewtest.basedir}/out/test/TradingViewTest"/>
+  
+  <path id="tradingviewtest.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="tradingviewtest.module.production.classpath">
+    <path refid="${module.jdk.classpath.tradingviewtest}"/>
+  </path>
+  
+  <path id="tradingviewtest.runtime.production.module.classpath">
+    <pathelement location="${tradingviewtest.output.dir}"/>
+  </path>
+  
+  <path id="tradingviewtest.module.classpath">
+    <path refid="${module.jdk.classpath.tradingviewtest}"/>
+    <pathelement location="${tradingviewtest.output.dir}"/>
+  </path>
+  
+  <path id="tradingviewtest.runtime.module.classpath">
+    <pathelement location="${tradingviewtest.testoutput.dir}"/>
+    <pathelement location="${tradingviewtest.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.tradingviewtest">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.tradingviewtest">
+    <patternset refid="excluded.from.module.tradingviewtest"/>
+  </patternset>
+  
+  <path id="tradingviewtest.module.sourcepath">
+    <dirset dir="${module.tradingviewtest.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.tradingviewtest" depends="compile.module.tradingviewtest.production,compile.module.tradingviewtest.tests" description="Compile module TradingViewTest"/>
+  
+  <target name="compile.module.tradingviewtest.production" depends="register.custom.compilers" description="Compile module TradingViewTest; production classes">
+    <mkdir dir="${tradingviewtest.output.dir}"/>
+    <javac2 destdir="${tradingviewtest.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.tradingviewtest}/javac">
+      <compilerarg line="${compiler.args.tradingviewtest}"/>
+      <bootclasspath refid="tradingviewtest.module.bootclasspath"/>
+      <classpath refid="tradingviewtest.module.production.classpath"/>
+      <src refid="tradingviewtest.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.tradingviewtest"/>
+    </javac2>
+    
+    <copy todir="${tradingviewtest.output.dir}">
+      <fileset dir="${module.tradingviewtest.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.tradingviewtest.tests" depends="register.custom.compilers,compile.module.tradingviewtest.production" description="compile module TradingViewTest; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.tradingviewtest" description="cleanup module">
+    <delete dir="${tradingviewtest.output.dir}"/>
+    <delete dir="${tradingviewtest.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.tradingviewtest" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.tradingviewtest" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.client" value="${basedir}/out/artifacts/Client"/>
+    <property name="artifact.output.server" value="${basedir}/out/artifacts/Server"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.Client.jar" value="${artifacts.temp.dir}/Client.jar"/>
+    <property name="temp.jar.path.Server.jar" value="${artifacts.temp.dir}/Server.jar"/>
+  </target>
+  
+  <target name="artifact.client" depends="init.artifacts, compile.module.tradingviewtest" description="Build &#39;Client&#39; artifact">
+    <property name="artifact.temp.output.client" value="${artifacts.temp.dir}/Client"/>
+    <mkdir dir="${artifact.temp.output.client}"/>
+    <jar destfile="${temp.jar.path.Client.jar}" duplicate="preserve" filesetmanifest="merge">
+      <zipfileset file="${basedir}/src/com/nesterov/client/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${tradingviewtest.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.Client.jar}" tofile="${artifact.temp.output.client}/Client.jar"/>
+  </target>
+  
+  <target name="artifact.server" depends="init.artifacts, compile.module.tradingviewtest" description="Build &#39;Server&#39; artifact">
+    <property name="artifact.temp.output.server" value="${artifacts.temp.dir}/Server"/>
+    <mkdir dir="${artifact.temp.output.server}"/>
+    <mkdir dir="${artifact.temp.output.server}/files"/>
+    <jar destfile="${temp.jar.path.Server.jar}" duplicate="preserve" filesetmanifest="merge">
+      <zipfileset file="${basedir}/src/com/nesterov/server/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${tradingviewtest.output.dir}"/>
+    </jar>
+    <copy file="${temp.jar.path.Server.jar}" tofile="${artifact.temp.output.server}/Server.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.client, artifact.server" description="Build all artifacts">
+    <mkdir dir="${artifact.output.client}"/>
+    <mkdir dir="${artifact.output.client}/downloads"/>
+    <copy todir="${artifact.output.client}">
+      <fileset dir="${artifact.temp.output.client}"/>
+    </copy>
+    <mkdir dir="${artifact.output.server}"/>
+    <copy todir="${artifact.output.server}">
+      <fileset dir="${artifact.temp.output.server}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
