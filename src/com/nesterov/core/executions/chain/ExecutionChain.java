@@ -25,7 +25,6 @@ public class ExecutionChain<T> implements Runnable,Chain<T> {
         try {
 
             if (tasks.peek()!=null) {
-                System.out.println("SIZE "+tasks.size());
                 tasks.poll().invoke(this, properties);
             }
             else this.onComplete.accept(properties);
