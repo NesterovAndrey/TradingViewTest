@@ -8,6 +8,7 @@ import com.nesterov.core.executions.task.TaskExceptionFactory;
 
 import java.io.*;
 import java.nio.channels.AsynchronousSocketChannel;
+import java.util.Optional;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 
@@ -29,7 +30,7 @@ public class FilesListTask extends AbstractTask<Float,String, RequestProperties>
                          TaskExceptionFactory<RequestProperties> exceptionFactory) {
         super(onProgress, onComplete,onFail,exceptionFactory);
        this.timeout=timeout;
-       this.executorService=executorService;
+       this.executorService= Optional.of(executorService).get();
     }
 
     @Override
@@ -37,7 +38,7 @@ public class FilesListTask extends AbstractTask<Float,String, RequestProperties>
         ClientConfig.logger().info(String.format("Retrieving list of files"));
         return readData(requestProperties.getInputStream());
     }
-    private String readData(InputStream inputStream) throws InterruptedException, ExecutionException, TimeoutException {
+    private String readData(InputStream inputStream) throws InterruptedException, ExecutionException, TimeoutException, IOException {
         String result=null;
             FutureTask<String> future=new FutureTask<String>(()
             ->{
@@ -46,6 +47,7 @@ public class FilesListTask extends AbstractTask<Float,String, RequestProperties>
             });
             executorService.submit(future);
             result=future.get(timeout, TimeUnit.SECONDS);
+            inputStream.close();
         return result;
     }
 }
