@@ -1,0 +1,12 @@
+-----STAT Mon Apr 24 03:14:26 MSK 2017-----
+-----STAT Mon Apr 24 03:14:36 MSK 2017-----
+-----STAT Mon Apr 24 03:14:46 MSK 2017-----
+-----STAT Mon Apr 24 03:14:56 MSK 2017-----
+-----STAT Mon Apr 24 03:15:06 MSK 2017-----
+-----STAT Mon Apr 24 03:15:16 MSK 2017-----
+-----STAT Mon Apr 24 03:15:26 MSK 2017-----
+*********
+ File name:Server.jar	 Downloads count:1
+-----STAT Mon Apr 24 03:15:36 MSK 2017-----
+*********
+ File name:Server.jar	 Downloads count:1

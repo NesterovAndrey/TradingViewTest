@@ -53,8 +53,6 @@ public class MainPresenterImpl implements MainPresenter {
                 {
                     Map<Objects,List> resultMap= ClientConfig.jsonMapper().map(result);
                     this.viewImpl.showFiles(resultMap.get("filename"));
-
-
                 });
         this.client.getTaskExecutor().
                 execution(actionType).build().doNext(chainProperties);

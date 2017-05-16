@@ -39,6 +39,7 @@ public abstract class AbstractTask<P,C, V> implements Task<P,V>{
             this.onComplete.accept(result);
             //Пр удачном выполнении переходим дальше
             chain.doNext(requestProperties);
+
         }
         catch (Throwable e)
         {
